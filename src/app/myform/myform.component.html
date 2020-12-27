@@ -1,0 +1,47 @@
+<div class="container-fluid bg-dark py-3" >
+    <h2 class="text-center text-white">Template Driven Form With Validations</h2>
+</div>
+<div class="container mt-5">
+    <form (ngSubmit)="onSubmit()" #myform="ngForm">
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="myModel.firstname" #firstname="ngModel" required>
+            <small class="text-danger" *ngIf="firstname.touched && firstname.invalid"><b>First name is required...</b></small>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="myModel.lastname">
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input id="username" class="form-control" type="text" name="username" [(ngModel)]="myModel.username" #username="ngModel" required>
+            <small class="text-danger" *ngIf="username.touched && !username.dirty"><b>Username is required...</b></small>
+        </div>
+        <div class="form-group">
+            <label for="emailid">Email ID</label>
+            <input id="emailid" class="form-control" type="email" name="text" [(ngModel)]="myModel.emailid" #email="ngModel" pattern="[^ @]*@[^ @]*" required email>
+            <small class="text-danger" *ngIf=" email.touched && !email.valid "><b>Email is required...</b></small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" class="form-control" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="10" [(ngModel)]="myModel.password" #password="ngModel" required>
+            <small class="text-danger" *ngIf="!password.valid && password.touched"><b>Password is required...</b></small>
+           
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="confirmpassword">Confirm Password</label>
+            <input id="confirmpassword" class="form-control" type="password" name="confirmpassword" [(ngModel)]="myModel.confirmpassword" required #cpass="ngModel">
+            <small class="text-danger" *ngIf="(myModel.password !== myModel.confirmpassword) && ((cpass.touched || cpass.dirty) && cpass.invalid)">Password Doesn't Match..</small>
+        </div> -->
+
+        <div class="alert alert-success text-center" *ngIf="myform.valid">
+            Now You Can Submit Your Form.
+        </div>
+
+        <button class="btn btn-dark w-100" [disabled]="myform.invalid">Submit</button>
+    </form>
+</div>
